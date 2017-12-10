@@ -10,7 +10,7 @@ defmodule MangoWeb.RegistrationController do
 
   def create(conn, %{"registration" => registration_params}) do
     case CRM.create_customer(registration_params) do
-      {:ok, customer} ->
+      {:ok, _customer} ->
         conn
         |> put_flash(:info, "Registration successful")
         |> redirect(to: page_path(conn, :index))

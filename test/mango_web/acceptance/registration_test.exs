@@ -16,7 +16,7 @@ defmodule MangoWeb.Acceptance.RegistrationTest do
 
     find_within_element(form, :name, "registration[phone]")
     |> fill_field("1111")
-    
+
     find_element(:css, "#registration_residence_area option[value='Area 1']")
     |> click
 
@@ -26,7 +26,7 @@ defmodule MangoWeb.Acceptance.RegistrationTest do
     find_within_element(form, :tag, "button")
     |> click
 
-    assert current_path == "/"
+    assert current_path() == "/"
     message = find_element(:class, "alert")
               |> visible_text()
 
