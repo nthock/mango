@@ -27,4 +27,28 @@ defmodule Mango.CRM do
         :error
     end
   end
+
+  alias Mango.CRM.Ticket
+
+  def list_customer_tickets(customer) do
+    customer
+    |> Ecto.assoc(:tickets)
+    |> Repo.all
+  end
+
+  def get_customer_ticket!(customer, id) do
+    customer
+    |> Ecto.assoc(:tickets)
+    |> Repo.get!(id)
+  end
+
+  def create_customer_ticket(%Customer{} = customer, attrs \\ %{}) do
+    build_customer_ticket(customer, attrs)
+    |> Repo.insert()
+  end
+
+  def build_customer_ticket(%Customer{} = customer, attrs \\ %{}) do
+    Ecto.build_assoc(customer, :tickets, %{status: "New"})
+    |> Ticket.changeset(attrs)
+  end
 end
